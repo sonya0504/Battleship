@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+    
     var view = {
         displayMessage: function(msg) {
             var messegeArea = document.getElementById('messageArea');
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     view.displayMessage("TRAFIONY!");
                     if (this.isSunk(ship)) {
                         view.displayMessage("ZATOPIŁEŚ MÓJ OKRĘT!");
-                        this.isSunk++;
+                        this.shipsSunk++;
                     }
                     return true;
                 }
@@ -81,15 +82,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
         guesses: 0,
 
         processGuess: function(guess) {
+            var location = parseGuess(guess);
             if (location) {
                 this.guesses++;
                 var hit = model.fire(location);
-                if (hit && model.shipsSunk === model.shipLength) {
-                    view.displayMessage('Zatopiłeś moje okręty, w' + this.guesses + ' próbach');
+                if (hit && model.shipsSunk === model.numShips) {
+                    view.displayMessage('ZATOPIŁEŚ WSZYSTKIE MOJE OKRĘTY W ' + this.guesses + ' PRÓBACH');
                 }
             }
         }
     }
+
+    controller.processGuess('A0');
+    controller.processGuess('A6');
+    controller.processGuess('B6');
+    controller.processGuess('C6');
+    controller.processGuess('C4');
+    controller.processGuess('D4');
+    controller.processGuess('E4');
+    controller.processGuess('B0');
+    controller.processGuess('B1');
+    controller.processGuess('B2');
 
 });
 
