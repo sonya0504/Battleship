@@ -55,6 +55,50 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
             return true;
         },
+
+        generateShipLocations: function () {
+            var locations;
+            for (var i = 0; i < this.numShips; i++) {
+                do {
+                    locations = this.generateShip();
+                } while (this.collision(locations));
+                this.ships[i].locations = locations;
+            }
+        },
+
+        generateShip: function () {
+            var direction = Math.floor(Math.random() * 2);
+            var row, col;
+            if (direction === 1) {
+                row = Math.floor(Math.random() * this.boardSize);
+                col = Math.floor(Math.random() * this.boardSize - this.shipLength);
+            } else {
+                row = Math.floor(Math.random() * this.boardSize - this.shipLength);
+                col = Math.floor(Math.random() * this.boardSize);
+            }
+
+            var newShipLocations = [];
+            for (var i = 0; i < this.shipLength; i++) {
+               if (direction === 1) {
+                   newShipLocations.push(row + "" + (col + i));
+                } else {
+                   newShipLocations.push((row + i) + "" + col);
+                } 
+            }
+            return newShipLocations;
+        },
+
+        collision: function (lcations) {
+            for (var i = 0; i < this.numShips; i++) {
+                var ship = model.ships[i];
+                for (var j = 0; j < locations.length; j++) {
+                    if (ship.locations.indexOf(locations[j]) >= 0) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 
     function parseGuess(guess) {
@@ -93,16 +137,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
 
-    controller.processGuess('A0');
-    controller.processGuess('A6');
-    controller.processGuess('B6');
-    controller.processGuess('C6');
-    controller.processGuess('C4');
-    controller.processGuess('D4');
-    controller.processGuess('E4');
-    controller.processGuess('B0');
-    controller.processGuess('B1');
-    controller.processGuess('B2');
+    function init () {
+        var fireButton = document.getElementById('fireButton');
+        fireButton.onclick = handleFireButton;
+    }
+
+    function handleFireButton () {
+        var guessInput = document.getElementById('guessInput');
+        var guess = guessInput.value;
+    }
+
+    window.onload = init;
+
 
 });
 
