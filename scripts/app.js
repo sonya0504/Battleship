@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 } while (this.collision(locations));
                 this.ships[i].locations = locations;
             }
+            console.log('Tablica okrętów: ', this.ships);
         },
 
         generateShip: function() {
@@ -56,18 +57,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
             var row, col;
             if (direction === 1) {
                 row = Math.floor(Math.random() * this.boardSize);
-                col = Math.floor(Math.random() * this.boardSize - this.shipLength);
+                col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
             } else {
-                row = Math.floor(Math.random() * this.boardSize - this.shipLength);
+                row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
                 col = Math.floor(Math.random() * this.boardSize);
             }
 
             var newShipLocations = [];
             for (var i = 0; i < this.shipLength; i++) {
                 if (direction === 1) {
-                    newShipLocations.push(row + "" + (col + i));
+                    newShipLocations.push(row + '' + (col + i));
                 } else {
-                    newShipLocations.push((row + i) + "" + col);
+                    newShipLocations.push((row + i) + '' + col);
                 }
             }
             return newShipLocations;
@@ -88,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     var view = {
         displayMessage: function(msg) {
-            var messgeArea = document.getElementById('messageArea');
+            var messageArea = document.getElementById('messageArea');
             messageArea.innerHTML = msg;
         },
         displayHit: function(location) {
