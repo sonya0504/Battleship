@@ -16,7 +16,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 var ship = this.ships[i];
                 var index = ship.locations.indexOf(guess);
 
-                if (index >= 0) {
+                if (ship.hits[index] === "hit") {
+                    view.displayMessage("Ups, już wcześnej trafiłeś to pole!");
+                    return true;
+                } else if (index >= 0) {
                     ship.hits[index] = "hit";
                     view.displayHit(guess);
                     view.displayMessage("TRAFIONY!");
@@ -49,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 } while (this.collision(locations));
                 this.ships[i].locations = locations;
             }
-            console.log('Tablica okrętów: ', this.ships);
         },
 
         generateShip: function() {
@@ -140,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     function handleFireButton() {
         var guessInput = document.getElementById('guessInput');
-        var guess = guessInput.value;
+        var guess = guessInput.value.toUpperCase();
         controller.processGuess(guess);
     }
 

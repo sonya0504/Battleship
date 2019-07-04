@@ -15,13 +15,17 @@ div#messageArea {
     top: 0;
     left: 0;
     color: rgb(83, 175, 19);
+    font-size: 30px;
+    font-weight: 900;
 }
 
 table {
     position: absolute;
-    left: 173px;
+    left: 0;
+    right: 0;
     top: 98px;
     border-spacing: 0;
+    margin: 0 auto;
 }
 
 td {
