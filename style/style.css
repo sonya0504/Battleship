@@ -21,11 +21,9 @@ div#messageArea {
 
 table {
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 173px;
     top: 98px;
     border-spacing: 0;
-    margin: 0 auto;
 }
 
 td {
